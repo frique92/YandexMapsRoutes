@@ -8,46 +8,56 @@ function init()
 		    zoom    : 10
         });
         
-    function getNewCoordinatesPlane(myPolyline)
+    function getNewCoordinatesPlane(routePolyline)
     {
-        let lengthGeometry = myPolyline.geometry.getLength(),
-            lastCoordinates = myPolyline.geometry.get(lengthGeometry - 1);
+        let lengthGeometry = routePolyline.geometry.getLength(),
+            lastCoordinates = routePolyline.geometry.get(lengthGeometry - 1);
 
         return lengthGeometry == 0
         ? [56.13, 40.4]
         : lastCoordinates.map(coord => coord - Math.random() / 100 );
     }
 
-    function setNewGeometry(myPolyline, maxPoints)
+    function setNewGeometry(routePolyline, planePlacemark, maxPoints)
 	{
-		let lengthGeometry = myPolyline.geometry.getLength(),
-			NewCoordinatesPlane = getNewCoordinatesPlane(myPolyline),
+		let lengthGeometry = routePolyline.geometry.getLength(),
+			NewCoordinatesPlane = getNewCoordinatesPlane(routePolyline),
 			boundsPolyline;
 
-	    myPolyline.geometry.set(lengthGeometry, NewCoordinatesPlane);
-	    lengthGeometry = myPolyline.geometry.getLength();
+	    routePolyline.geometry.set(lengthGeometry, NewCoordinatesPlane);
+	    lengthGeometry = routePolyline.geometry.getLength();
 
 	    if (lengthGeometry - maxPoints > 0)
-	    	myPolyline.geometry.splice(0, lengthGeometry - maxPoints - 1);
+	    	routePolyline.geometry.splice(0, lengthGeometry - maxPoints - 1);
 
-	    boundsPolyline = myPolyline.geometry.getBounds();
+	    boundsPolyline = routePolyline.geometry.getBounds();
 
 	    yMap.setBounds(boundsPolyline, {
 	    	checkZoomRange : true,
 	    	duration       : 100,
 	    	zoomMargin     : 100
-	    });
+        });
+        
+        planePlacemark.geometry.setCoordinates(NewCoordinatesPlane);
 	}
 
-	let myPolyline = new ymaps.Polyline([], null, {
+	let routePolyline = new ymaps.Polyline([], null, {
 		balloonCloseButton : false,
 		strokeColor        : "#0687b6",
 		strokeWidth        : 5,
 		strokeOpacity      : 0.7
   	});
 
-	yMap.geoObjects.add(myPolyline);
+    let planePlacemark = new ymaps.Placemark([], null, {
+	    iconLayout      : "default#image",
+	    iconImageHref   : "img/plane.png",
+	    iconImageSize   : [40, 40],
+	    iconImageOffset : [-20, -20]
+	});
 
-	setInterval( () => setNewGeometry(myPolyline, maxPoints), 1000);
+    yMap.geoObjects.add(routePolyline);
+    yMap.geoObjects.add(planePlacemark);
+
+	setInterval( () => setNewGeometry(routePolyline, planePlacemark, maxPoints), 1000);
         
 }
