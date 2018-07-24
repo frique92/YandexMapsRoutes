@@ -3,11 +3,26 @@ ymaps.ready(init);
 function init() 
 {
     var maxPoints = 30,
+        delayInterval = 1000;
+        maxPointsInput = document.params.max_points,
+        delayInput = document.params.delay,
+		applyButton = document.params.apply,
         yMap = new ymaps.Map("map", {
-		    center  : [56.13, 40.4],
-		    zoom    : 10
+		    center      : [56.13, 40.4],
+            zoom        : 10,
+            controls    : []
         });
         
+    maxPointsInput.value = maxPoints;
+    delayInput.value = delayInterval / 1000;
+
+    applyButton.onclick = function(e){
+        e.preventDefault();
+        maxPoints = maxPointsInput.value;
+        delayInterval = delayInput.value * 1000;
+        console.log(delayInterval)
+    }    
+
     function getNewCoordinatesPlane(routePolyline)
     {
         let lengthGeometry = routePolyline.geometry.getLength(),
@@ -33,9 +48,7 @@ function init()
 	    boundsPolyline = routePolyline.geometry.getBounds();
 
 	    yMap.setBounds(boundsPolyline, {
-	    	checkZoomRange : true,
-	    	duration       : 100,
-	    	zoomMargin     : 100
+	    	checkZoomRange : true
         });
         
         planePlacemark.geometry.setCoordinates(NewCoordinatesPlane);
@@ -58,6 +71,9 @@ function init()
     yMap.geoObjects.add(routePolyline);
     yMap.geoObjects.add(planePlacemark);
 
-	setInterval( () => setNewGeometry(routePolyline, planePlacemark, maxPoints), 1000);
+    var timerId = setTimeout(function tick() {
+        setNewGeometry(routePolyline, planePlacemark, maxPoints);
+        timerId = setTimeout(tick, delayInterval);
+      }, delayInterval);
         
 }

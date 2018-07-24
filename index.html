@@ -11,6 +11,22 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div id="map"></div>
+    <div class="wrapper">
+        <form class="params" name="params" action="">
+                <h2>Параметры маршрута линии</h2>
+                <fieldset>
+                    <p>Количество отображаемых точек маршрута</p>
+                    <input type="text" name="max_points">
+                </fieldset>
+                <fieldset>
+                    <p>Интервал получения новой координаты (сек.)</p>
+                    <input type="text" name="delay">
+                </fieldset>
+                <fieldset>
+                    <button name="apply">Применить</button>
+                </fieldset>
+            </form>
+            <div id="map"></div>
+    </div>
 </body>
 </html>
