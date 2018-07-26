@@ -48,3 +48,63 @@ html,body, .wrapper, #map {
     margin-bottom: 10px;
     color: #696969;
 }
+
+.server_text {
+    float: left;
+}
+
+#img-state-server {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+
+.checkbox {
+    position: relative;
+}
+
+.checkbox input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    margin: 10px 0 0 20px;
+}
+
+.checkbox__text {
+    cursor: pointer;
+}
+
+.checkbox__text:before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 196px;
+    width: 50px;
+    height: 26px;
+    border-radius: 13px;
+    background: rgb(194, 194, 194);
+    box-shadow: inset 0 2px 3px rgba(0,0,0,.2);
+    transition: .2s;
+}
+  
+.checkbox__text:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 198px;
+    width: 22px;
+    height: 22px;
+    border-radius: 10px;
+    background: rgb(240, 240, 240);
+    box-shadow: 0 2px 5px rgba(0,0,0,.3);
+    transition: .2s;
+}
+  
+.checkbox input:checked + .checkbox__text:before {
+    background: #3d8bda;
+}
+  
+.checkbox input:checked + .checkbox__text:after {
+    left: 220px;
+}

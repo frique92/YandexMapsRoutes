@@ -22,8 +22,15 @@
                     <p>Интервал получения новой координаты (сек.)</p>
                     <input type="text" name="delay">
                 </fieldset>
+                <label class="checkbox">
+                    <input type="checkbox" name="scaling">
+                    <p class="checkbox__text">Автомасштабирование</p>
+                </label>
                 <fieldset>
                     <button name="apply">Применить</button>
+                </fieldset>
+                <fieldset id="server">
+                    <p class="server_text">Сервер</p>
                 </fieldset>
             </form>
             <div id="map"></div>
