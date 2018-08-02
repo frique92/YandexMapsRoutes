@@ -27,13 +27,20 @@
                     <p class="checkbox__text">Автомасштабирование</p>
                 </label>
                 <fieldset>
-                    <button name="apply">Применить</button>
+                    <button name="apply" class="params-btn">Применить</button>
                 </fieldset>
-                <fieldset id="server">
+                <div class="control-weather">
+                    <h2>Состояние погоды</h2>
+                    <select id="select-time" class="control-weather-select_time"></select>
+                    <button id="previos-time" class="control-weather-button">←</button>
+                    <button id="start-time" class="control-weather-button">Запуск</button>
+                    <button id="next-time" class="control-weather-button">→</button>
+                </div>
+                <fieldset id="server" class="state-server">
                     <p class="server_text">Сервер</p>
                 </fieldset>
-            </form>
-            <div id="map"></div>
+        </form>
+        <div id="map"></div>
     </div>
 </body>
 </html>

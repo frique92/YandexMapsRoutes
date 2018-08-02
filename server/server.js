@@ -23,7 +23,7 @@ webSocketServer.on('connection', function (ws) {
 
 function getNewCoordinatesPlane() 
 {
-    lastCoordinates = lastCoordinates.map(coord => coord - Math.random() / 100);
+    lastCoordinates = lastCoordinates.map(coord => coord - Math.random() / 50);
     return lastCoordinates;
 }
 
